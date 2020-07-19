@@ -143,7 +143,7 @@ data/c_map_vs_coord_pairs.zip
 datasets/protein_dataset_x.py
 data/model_ids_container/*.txt
 data/*.pdb
-outputs/logs/*
-outputs/models/*
+outputs/logs/*.log
+outputs/models/*.pt
 data/fragments/*.pdb
 data/clean_pdbs/*.pdb
