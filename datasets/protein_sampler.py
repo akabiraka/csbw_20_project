@@ -1,6 +1,5 @@
 import sys
 sys.path.append('../csbw_20_project')
-from termcolor import colored
 
 from Bio.PDB import *
 from Bio.PDB.PDBIO import PDBIO
@@ -20,7 +19,7 @@ class ProteinSampler():
         if len(residues) >= CONFIGS.FRAGMENT_SIZE: 
             try:
                 fragments = [residues[i:i + CONFIGS.FRAGMENT_SIZE] for i in range(0, len(residues)-CONFIGS.FRAGMENT_SIZE+1, CONFIGS.FRAGMENT_STRIDE)]
-                print(colored("{} fragments found. Protein has {} amino-acids whereas mnimum fragment size is {}.".format(len(fragments), len(chain), CONFIGS.FRAGMENT_SIZE), "green"))
+                print("{} fragments found. Protein has {} amino-acids whereas mnimum fragment size is {}.".format(len(fragments), len(chain), CONFIGS.FRAGMENT_SIZE))
                 for i, fragment in enumerate(fragments):
                     fragment_id = pdb_id + chain_id + "_" + str(i)
                     structure = self.build_structure(fragment, chain_id)
@@ -28,11 +27,11 @@ class ProteinSampler():
                     self.pdbio.save(CONFIGS.FRAGMENTS_DIR + fragment_id + CONFIGS.DOT_PDB)
                     fragment_ids.append(fragment_id)
             except Exception as e:
-                print(colored("Error happended while saving the fragment for {}:{}.".format(pdb_id, chain_id), "red"))
+                print("Error happended while saving the fragment for {}:{}.".format(pdb_id, chain_id))
                 raise
                 pass
         else:
-            print(colored("No fragment found. Protein has {} amino-acids whereas mnimum fragment size is {}.".format(len(chain), CONFIGS.FRAGMENT_SIZE), "yellow"))
+            print("No fragment found. Protein has {} amino-acids whereas mnimum fragment size is {}.".format(len(chain), CONFIGS.FRAGMENT_SIZE))
         
         return fragment_ids
         

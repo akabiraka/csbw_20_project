@@ -1,7 +1,6 @@
 import sys
 sys.path.append('../csbw_20_project')
 import traceback
-from termcolor import colored
 from Bio.PDB import *
 
 import configs as CONFIGS
@@ -57,11 +56,11 @@ for i, line in enumerate(file_content):
             d3_coords = coordinates.generate(filename=fragment_id, pdb_id=pdb_id, chain_id=chain_id)
             DataUtils.save_using_pickle([dist_matrix, d3_coords], CONFIGS.CONTACT_MAP_VS_COORDINATES_DIR+fragment_id+CONFIGS.DOT_PKL)
             good_fragment_id_handle.write(fragment_id+"\n")
-            print(colored("Comment: good {}".format(fragment_id), "green"))
+            print("Comment: good {}".format(fragment_id))
         except Exception as e:
             traceback.print_exc()
             bd_fragment_id_handle.write(fragment_id+"\n")
-            print(colored("Comment: corrupted {}".format(fragment_id), "red"))
+            print("Comment: corrupted {}".format(fragment_id))
             continue
     
     if i+1 == total_proteins_to_evaluate: break
