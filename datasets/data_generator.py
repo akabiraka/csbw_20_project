@@ -5,7 +5,7 @@ from Bio.PDB import *
 
 import configs as CONFIGS
 from utils.clean_slate import CleanSlate
-from datasets.my_pdb_data import MyPDBData
+from datasets.my_pdb_data import MyPDBData, ChainAndAminoAcidSelect
 from datasets.protein_sampler import ProteinSampler
 from datasets.distance_matrix import DistanceMatrix
 from datasets.coordinates import Coordinates
@@ -46,7 +46,7 @@ for i, line in enumerate(file_content):
     if len(chain_id) > 1: continue
     
     myPDBData.download(pdb_id)
-    cleaned_structure = myPDBData.clean(pdb_id, chain_id)
+    cleaned_structure = myPDBData.clean(pdb_id, chain_id, select=ChainAndAminoAcidSelect(chain_id))
     chain = myPDBData.get_chain_from_structure(cleaned_structure, chain_id)
     fragment_ids = proteinSampler.sample_from_chain(pdb_id, chain_id, chain)
     
