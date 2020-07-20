@@ -6,6 +6,26 @@ from Bio.PDB.PDBIO import PDBIO, Select
 
 import configs as CONFIGS
 
+class CAAtomSelector(Select):
+    def __init__(self, chain_id):
+        self.chain_id = chain_id
+    
+    def  accept_chain(self, chain):
+        # print(chain.id)
+        if chain.id == self.chain_id:
+            return 1
+        else:
+            return 0
+        
+    def accept_atom(self, atom):
+        """Overload this to reject atoms for output."""
+        if atom.name == "CA":
+            return 1
+        else:
+            return 0
+        
+        
+
 class ChainAndAminoAcidSelect(Select):
     def __init__(self, chain_id):
         self.chain_id = chain_id
@@ -41,7 +61,7 @@ class MyPDBData(object):
         """
         self.pdbl.retrieve_pdb_file(pdb_code, pdir=CONFIGS.PDB_DIR, file_format=CONFIGS.CIF)
         
-    def clean(self, pdb_id, chain_id):
+    def clean(self, pdb_id, chain_id, select=ChainAndAminoAcidSelect("A")):
         """[summary]
 
         Args:
@@ -51,11 +71,11 @@ class MyPDBData(object):
         Returns:
             Structure: Return the cleaned structure
         """
-        print("Cleaning non-amino-acid residues and extracting given chain for {}:{} ... ..".format(pdb_id, chain_id))
+        print("Cleaning {}:{} ... ..".format(pdb_id, chain_id))
         pdb_filename = CONFIGS.PDB_DIR + pdb_id + CONFIGS.DOT_CIF
         structure = self.parser.get_structure(pdb_id, pdb_filename)
         self.pdbio.set_structure(structure)
-        self.pdbio.save(CONFIGS.CLEAN_PDB_DIR + pdb_id + chain_id + CONFIGS.DOT_PDB, ChainAndAminoAcidSelect(chain_id))
+        self.pdbio.save(CONFIGS.CLEAN_PDB_DIR + pdb_id + chain_id + CONFIGS.DOT_PDB, select=select)
         pdb_filename = CONFIGS.CLEAN_PDB_DIR + pdb_id+chain_id + CONFIGS.DOT_PDB
         return PDBParser(QUIET=True).get_structure(pdb_id, pdb_filename)
         
