@@ -13,7 +13,7 @@ class DistanceMatrix(object):
         """Compute distance matrix.
 
         Args:
-            output_matrix_type (str, optional): [description]. Defaults to "4N4N".
+            output_matrix_type (str, optional): Values can be 4N4N, NN. Defaults to "4N4N".
             input_dir ([type], optional): [description]. Defaults to CONFIGS.FRAGMENTS_DIR.
             file_format ([type], optional): [description]. Defaults to CONFIGS.DOT_PDB.
             parser ([type], optional): [description]. Defaults to PDBParser(QUIET=True).
