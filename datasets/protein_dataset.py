@@ -43,6 +43,9 @@ class ProteinDataset(Dataset):
         noisey_dist_mat = self.add_noise(dist_mat=dist_mat, noise_type=self.noise_type, mode=self.noise_mode)
         return torch.tensor(noisey_dist_mat, dtype=torch.float32), torch.tensor(d3_coords, dtype=torch.float32)
 
+    def get_record_id(self, i):
+        return self.record_ids[i]
+    
     def get_ground_truth(self, i):
         """
         Returns a single record [inp, out]
@@ -121,11 +124,11 @@ class ProteinDataset(Dataset):
 
 
 # pd = ProteinDataset(file="data/train_good_fragment_ids.txt")#(file=CONFIGS.VAL_FILE)
-pd = ProteinDataset(data_dir="data/cmap_coord_pairs/", file="data/val_set_good_fragment_ids.txt")
-print(pd.__len__())
-print(len(pd.__getitem__(0)))
-# # accessing a fixed size contact-map/distance-matrix and 3d-coordinate matrix
-print(pd.__getitem__(0)[0].shape, pd.__getitem__(0)[1].shape)
+# pd = ProteinDataset(data_dir="data/cmap_coord_pairs/", file="data/val_set_good_fragment_ids.txt")
+# print(pd.__len__())
+# print(len(pd.__getitem__(0)))
+# # # accessing a fixed size contact-map/distance-matrix and 3d-coordinate matrix
+# print(pd.__getitem__(0)[0].shape, pd.__getitem__(0)[1].shape)
 # print(pd.__getitem__(0)[1])
 
 # adding little salt_pepper noise
