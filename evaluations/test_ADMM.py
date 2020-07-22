@@ -31,7 +31,7 @@ for i, data  in enumerate(data_loader):
     
     start_time = time.time()
     predicted_3d_coords = ADMM.solve_sdp(CA_dist_map)
-    bio_rmsd = RMSD.compute_by_biopython(CA_coords, predicted_3d_coords)
+    bio_rmsd = RMSD.compute_by_SVD(CA_coords, predicted_3d_coords)
     run_time = (time.time()-start_time)/60
     
     print("{:.3f} {:.3f}\n".format(bio_rmsd, run_time))
