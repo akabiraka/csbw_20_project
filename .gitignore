@@ -147,3 +147,4 @@ outputs/logs/*.log
 outputs/models/*.pt
 data/fragments/*.pdb
 data/clean_pdbs/*.pdb
+outputs/*
