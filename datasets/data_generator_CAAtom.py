@@ -27,7 +27,7 @@ distanceMatrix = DistanceMatrix(output_matrix_type="NN", input_dir=CONFIGS.CLEAN
 coordinates = Coordinates(input_dir=CONFIGS.CLEAN_PDB_DIR, input_file_format=CONFIGS.DOT_PDB, parser=PDBParser(QUIET=True), save=False, atoms=["CA"])
 
 good_pdb_ids_handle = open("data/good_pdb_ids.txt", "a")    
-file_content = open("data/test.txt", "r")
+file_content = open("data/all_pdb_ids_tiny.txt", "r")
 
 n_proteins_to_skip = 0
 total_proteins_to_evaluate = n_proteins_to_skip + 5

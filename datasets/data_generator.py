@@ -2,6 +2,7 @@ import sys
 sys.path.append('../csbw_20_project')
 import traceback
 from Bio.PDB import *
+import traceback
 
 import configs as CONFIGS
 from utils.clean_slate import CleanSlate
@@ -29,11 +30,11 @@ proteinSampler = ProteinSampler()
 distanceMatrix = DistanceMatrix(output_matrix_type="4N4N", input_dir=CONFIGS.FRAGMENTS_DIR, input_file_format=CONFIGS.DOT_PDB, output_dir=CONFIGS.CONTACT_MAP_DIR, parser=PDBParser(QUIET=True), save=False)
 coordinates = Coordinates(input_dir=CONFIGS.FRAGMENTS_DIR, input_file_format=CONFIGS.DOT_PDB, output_dir=CONFIGS.MOLECULE_COORDINATES_DIR, parser=PDBParser(QUIET=True), save=False, atoms=CONFIGS.BACKBONE_ATOMS)
 
-bd_fragment_id_handle = open("data/val_set_bad_fragment_ids.txt", "a")
-good_fragment_id_handle = open("data/val_set_good_fragment_ids.txt", "a")
+bd_fragment_id_handle = open("data/bad_fragment_ids.txt", "a")
+good_fragment_id_handle = open("data/good_fragment_ids.txt", "a")
 # file_content = open(CONFIGS.TRAIN_FILE, "r")
 # file_content = open(CONFIGS.TEST_FILE, "r")
-file_content = open(CONFIGS.VAL_FILE, "r")
+file_content = open("data/all_pdb_ids_tiny.txt", "r")
 
 n_proteins_to_skip = 0
 total_proteins_to_evaluate = n_proteins_to_skip + 5
