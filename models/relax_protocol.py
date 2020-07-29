@@ -90,7 +90,7 @@ class RelaxProtocol(object):
         n_residues = pose.total_residue()
         for i in range(1, n_residues+1):
             for j in range(1, n_residues+1):
-                distance_value = dist_mat[i][j]
+                distance_value = dist_mat[i-1][j-1]
                 if np.isnan(distance_value):
                     continue
                 distance_lower_bound = distance_value-1 if distance_value-1 > 0 else 0
