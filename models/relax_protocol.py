@@ -138,7 +138,7 @@ class RelaxProtocol(object):
 
             # defining FastRelax protocol
             print("estimating pose using relax protocol ... ...")
-            fastrelax = rosetta.protocols.relax.FastRelax(scorefxn, 10)
+            fastrelax = rosetta.protocols.relax.FastRelax(scorefxn, 5)
             fastrelax.apply(pose)
         
             energy_score = scorefxn(pose)
