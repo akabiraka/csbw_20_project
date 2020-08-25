@@ -1,6 +1,7 @@
 import sys
 sys.path.append("../csbw_20_project")    
 
+import os
 import pyrosetta
 import rosetta
 pyrosetta.init()
@@ -26,8 +27,12 @@ file_content = open(fragment_ids_file, "r")
 n_fragments_to_skip = 0
 total_fragments_to_evaluate = n_fragments_to_skip + 1
 
+fragment_id_index = int(os.environ["SLURM_ARRAY_TASK_ID"])
+
 for i, fragment_id in enumerate(file_content):
-    if i < n_fragments_to_skip: continue
+    # if i < n_fragments_to_skip: continue
+    
+    if i != fragment_id_index: continue
     
     fragment_id = fragment_id.rstrip()
     print("Processing {}th fragment:{} ... ...:".format(i+1, fragment_id))
@@ -47,6 +52,6 @@ for i, fragment_id in enumerate(file_content):
     
     print("{:.3f} {:.3f} {:.3f} {:.3f}\n".format(native_pose_energy_score, predicted_pose_energy_score, rmsd_score, run_time))
     with open(rmsd_scores_log_file, "a") as rmsd_scores_log_file_handle:
-        rmsd_scores_log_file_handle.write("{:.3f} {:.3f} {:.3f} {:.3f}\n".format(native_pose_energy_score, predicted_pose_energy_score, rmsd_score, run_time))
+        rmsd_scores_log_file_handle.write("{} {} {:.3f} {:.3f} {:.3f} {:.3f}\n".format(fragment_id_index, fragment_id, native_pose_energy_score, predicted_pose_energy_score, rmsd_score, run_time))
         
-    if i+1 == total_fragments_to_evaluate: break
+    # if i+1 == total_fragments_to_evaluate: break
